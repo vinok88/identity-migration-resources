@@ -44,7 +44,7 @@ public class OAuthDataMigrator extends Migrator {
 
     private static final Log log = LogFactory
             .getLog(org.wso2.carbon.is.migration.service.v550.migrator.OAuthDataMigrator.class);
-    boolean isTokenHashColumnsAvailable = false;
+    //boolean isTokenHashColumnsAvailable = false;
     boolean isAuthzCodeHashColumnAvailable = false;
     boolean isClientSecretHashColumnsAvailable = false;
 
@@ -53,7 +53,7 @@ public class OAuthDataMigrator extends Migrator {
         try {
             addHashColumns();
             deleteClientSecretHashColumn();
-            migrateTokens();
+            //migrateTokens();
             migrateAuthorizationCodes();
             migrateClientSecrets();
         } catch (SQLException e) {
@@ -65,18 +65,18 @@ public class OAuthDataMigrator extends Migrator {
 
         try (Connection connection = getDataSource().getConnection()) {
             connection.setAutoCommit(false);
-            isTokenHashColumnsAvailable = TokenDAO.getInstance().isTokenHashColumnsAvailable(connection);
+            //isTokenHashColumnsAvailable = TokenDAO.getInstance().isTokenHashColumnsAvailable(connection);
             isAuthzCodeHashColumnAvailable = AuthzCodeDAO.getInstance().isAuthzCodeHashColumnAvailable(connection);
             connection.commit();
         }
-        if (!isTokenHashColumnsAvailable) {
+        /*if (!isTokenHashColumnsAvailable) {
             try (Connection connection = getDataSource().getConnection()) {
                 connection.setAutoCommit(false);
                 TokenDAO.getInstance().addAccessTokenHashColumn(connection);
                 TokenDAO.getInstance().addRefreshTokenHashColumn(connection);
                 connection.commit();
             }
-        }
+        }*/
         if (!isAuthzCodeHashColumnAvailable) {
             try (Connection connection = getDataSource().getConnection()) {
                 connection.setAutoCommit(false);

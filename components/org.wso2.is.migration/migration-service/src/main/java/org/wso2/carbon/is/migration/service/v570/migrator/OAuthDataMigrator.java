@@ -35,7 +35,7 @@ public class OAuthDataMigrator extends Migrator {
     @Override
     public void migrate() throws MigrationClientException {
 
-        migrateTokenHash();
+        //migrateTokenHash();
         migrateAuthzCodeHash();
     }
 

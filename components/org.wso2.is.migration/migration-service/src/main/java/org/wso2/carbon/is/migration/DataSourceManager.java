@@ -69,7 +69,7 @@ public class DataSourceManager {
     }
 
     public DataSource getDataSource(Schema schema) throws MigrationClientException {
-        if (schema.getName().equals(Schema.IDENTITY.getName())) {
+        if (schema.getName().equals(Schema.IDENTITY.getName()) || schema.getName().equals(Schema.TOKEN.getName())) {
             return dataSource;
         } else if (schema.getName().equals(Schema.UM.getName())) {
             return umDataSource;
@@ -82,7 +82,7 @@ public class DataSourceManager {
     }
 
     public DataSource getDataSource(String schema) throws MigrationClientException {
-        if (schema.equals(Schema.IDENTITY.getName())) {
+        if (schema.equals(Schema.IDENTITY.getName()) || schema.equals(Schema.TOKEN.getName())) {
             return dataSource;
         } else if (schema.equals(Schema.UM.getName())) {
             return umDataSource;

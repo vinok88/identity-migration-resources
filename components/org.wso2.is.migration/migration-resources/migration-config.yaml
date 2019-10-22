@@ -4,8 +4,8 @@ migrationEnable: "true"
 currentVersion: "5.x.x"
 # Migration End Version
 migrateVersion: "5.x.x"
-
-continueOnError: "true"
+#test2
+continueOnError: "false"
 batchUpdate: "true"
 ignoreForInactiveTenants: "true"
 
@@ -82,39 +82,44 @@ versions:
     parameters:
       location: "step1"
       schema: "identity"
+   - name: "SchemaMigrator"
+     order: 2
+     parameters:
+       location: "step1"
+       schema: "token"
    -
     name: "UserStorePasswordMigrator"
-    order: 2
+    order: 3
     parameters:
       schema: "identity"
    -
     name: "ClaimDataMigrator"
-    order: 3
-    parameters:
-      schema: "um"
-   -
-    name: "PermissionDataMigrator"
     order: 4
     parameters:
       schema: "um"
    -
-    name: "EmailTemplateDataMigrator"
+    name: "PermissionDataMigrator"
     order: 5
     parameters:
-      schema: "identity"
+      schema: "um"
    -
-    name: "ChallengeQuestionDataMigrator"
+    name: "EmailTemplateDataMigrator"
     order: 6
     parameters:
       schema: "identity"
    -
-    name: "ResidentIdpMetadataMigrator"
+    name: "ChallengeQuestionDataMigrator"
     order: 7
     parameters:
       schema: "identity"
    -
-    name: "OIDCScopeDataMigrator"
+    name: "ResidentIdpMetadataMigrator"
     order: 8
+    parameters:
+      schema: "identity"
+   -
+    name: "OIDCScopeDataMigrator"
+    order: 9
     parameters:
       schema: "identity"
  -
@@ -137,24 +142,29 @@ versions:
     parameters:
       location: "step1"
       schema: "um"
+   - name: "SchemaMigrator"
+     order: 4
+     parameters:
+       location: "step1"
+       schema: "token"
    -
     name: "UserStorePasswordMigrator"
-    order: 4
+    order: 5
     parameters:
       schema: "identity"
    -
     name: "ClaimDataMigrator"
-    order: 5
+    order: 6
     parameters:
       schema: "um"
    -
     name: "OAuthDataMigrator"
-    order: 6
+    order: 7
     parameters:
       schema: "identity"
    -
     name: "SchemaMigrator"
-    order: 7
+    order: 8
     parameters:
       location: "step2"
       schema: "identity"
@@ -173,48 +183,57 @@ versions:
     parameters:
       location: "step1"
       schema: "consent"
+   - name: "SchemaMigrator"
+     order: 3
+     parameters:
+       location: "step1"
+       schema: "token"
    -
     name: "OAuthDataMigrator"
-    order: 3
+    order: 4
     parameters:
       schema: "identity"
+   - name: "OAuthTokenDataMigrator"
+     order: 5
+     parameters:
+       schema: "identity"
    -
     name: "BPSProfileDataMigrator"
-    order: 4
+    order: 6
     parameters:
       schema: "identity"
    -
     name: "UserStorePasswordMigrator"
-    order: 5
+    order: 7
     parameters:
       schema: "identity"
    -
     name: "SysLogPropertiesMigrator"
-    order: 6
+    order: 8
    -
     name: "SchemaMigrator"
-    order: 7
+    order: 9
     parameters:
       location: "step2"
       schema: "identity"
    -
     name: "PolicySubscriberDataMigrator"
-    order: 8
-    parameters:
-      schema: "identity"
-   -
-    name: "KeyStorePasswordMigrator"
-    order: 9
-    parameters:
-      schema: "identity"
-   -
-    name: "SecurityPolicyPasswordMigrator"
     order: 10
     parameters:
       schema: "identity"
    -
-    name: "EventPublisherMigrator"
+    name: "KeyStorePasswordMigrator"
     order: 11
+    parameters:
+      schema: "identity"
+   -
+    name: "SecurityPolicyPasswordMigrator"
+    order: 12
+    parameters:
+      schema: "identity"
+   -
+    name: "EventPublisherMigrator"
+    order: 13
  -
   version: "5.6.0"
   migratorConfigs:
@@ -224,18 +243,23 @@ versions:
       parameters:
         location: "step1"
         schema: "identity"
+    - name: "SchemaMigrator"
+      order: 2
+      parameters:
+        location: "step1"
+        schema: "token"
     -
       name: "SpClaimDialectSchemaMigrator"
-      order: 2
+      order: 3
       parameters:
         location: "step2"
         schema: "identity"
     -
       name: "ClaimDataMigrator"
-      order: 3
+      order: 4
     -
       name: "SessionDataMigrator"
-      order: 4
+      order: 5
       parameters:
         schema: "identity"
  -
@@ -259,9 +283,18 @@ versions:
       parameters:
         location: "step1"
         schema: "consent"
+    - name: "SchemaMigrator"
+      order: 4
+      parameters:
+        location: "step1"
+        schema: "token"
     -
       name: "OAuthDataMigrator"
-      order: 4
+      order: 5
+      parameters:
+        schema: "identity"
+    - name: "OAuthTokenDataMigrator"
+      order: 6
       parameters:
         schema: "identity"
     -
