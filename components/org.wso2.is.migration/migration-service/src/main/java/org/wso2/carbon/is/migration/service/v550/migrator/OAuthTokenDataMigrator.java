@@ -31,12 +31,15 @@ public class OAuthTokenDataMigrator extends Migrator {
         try {
             addTokenHashColumns();
             migrateTokens();
-        } catch (SQLException e) {
-            throw new MigrationClientException("Error while adding hash columns", e);
+        } catch (Exception e) {
+            log.error("SQl Exception when execute  token migration.",e);
+            if (!isContinueOnError()) {
+                throw new MigrationClientException(e.getMessage(), e);
+            }
         }
     }
 
-    public void addTokenHashColumns() throws MigrationClientException, SQLException {
+    private void addTokenHashColumns() throws MigrationClientException, SQLException {
 
         try (Connection connection = getDataSource().getConnection()) {
             connection.setAutoCommit(false);
@@ -59,7 +62,7 @@ public class OAuthTokenDataMigrator extends Migrator {
      * @throws MigrationClientException
      * @throws SQLException
      */
-    public void migrateTokens() throws MigrationClientException, SQLException {
+    private void migrateTokens() throws MigrationClientException, SQLException {
 
         log.info(Constant.MIGRATION_LOG + "Migration starting on OAuth2 access token table.");
         List<OauthTokenInfo> oauthTokenList;
@@ -81,12 +84,11 @@ public class OAuthTokenDataMigrator extends Migrator {
         }
     }
 
-    public void migrateOldEncryptedTokens(List<OauthTokenInfo> oauthTokenList)
-            throws MigrationClientException, SQLException, IdentityOAuth2Exception {
+    private void migrateOldEncryptedTokens(List<OauthTokenInfo> oauthTokenList)
+            throws MigrationClientException, SQLException {
 
         log.info(Constant.MIGRATION_LOG + "Migration starting on OAuth2 access token table with encrypted tokens.");
-        List<OauthTokenInfo> updatedOauthTokenList = null;
-        updatedOauthTokenList = transformFromOldToNewEncryption(oauthTokenList);
+        List<OauthTokenInfo> updatedOauthTokenList = transformFromOldToNewEncryption(oauthTokenList);
 
         try (Connection connection = getDataSource().getConnection()) {
             connection.setAutoCommit(false);
@@ -103,7 +105,7 @@ public class OAuthTokenDataMigrator extends Migrator {
      * @throws MigrationClientException
      * @throws SQLException
      */
-    public void migratePlainTextTokens(List<OauthTokenInfo> oauthTokenList)
+    private void migratePlainTextTokens(List<OauthTokenInfo> oauthTokenList)
             throws IdentityOAuth2Exception, MigrationClientException, SQLException {
 
         log.info(Constant.MIGRATION_LOG + "Migration starting on OAuth2 access token table with plain text tokens.");

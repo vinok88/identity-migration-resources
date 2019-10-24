@@ -32,11 +32,10 @@ public class OAuthTokenDataMigrator extends Migrator {
 
     @Override
     public void migrate() throws MigrationClientException {
-
         migrateTokenHash();
     }
 
-    public void migrateTokenHash() throws MigrationClientException {
+    private void migrateTokenHash() throws MigrationClientException {
 
         log.info(Constant.MIGRATION_LOG + "Migration starting on OAuth2 access token table.");
 
@@ -50,14 +49,22 @@ public class OAuthTokenDataMigrator extends Migrator {
                 connection.commit();
             } catch (SQLException e) {
                 String error = "SQL error while updating token hash";
-                throw new MigrationClientException(error, e);
+                log.error(error,e);
+                if (!isContinueOnError()) {
+                    throw new MigrationClientException(error, e);
+                }
             }
         } catch (CryptoException e) {
-            throw new MigrationClientException("Error while encrypting tokens.", e);
+            log.error("Error while encrypting tokens.", e);
+            if (!isContinueOnError()) {
+                throw new MigrationClientException("Error while encrypting tokens.", e);
+            }
         } catch (IdentityOAuth2Exception e) {
-            throw new MigrationClientException("Error while migrating tokens.", e);
+            log.error("Error while migrating tokens.", e);
+            if (!isContinueOnError()) {
+                throw new MigrationClientException("Error while migrating tokens.", e);
+            }
         }
-
     }
 
     private List<OauthTokenInfo> getTokenList() throws MigrationClientException {

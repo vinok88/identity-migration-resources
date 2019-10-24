@@ -4,7 +4,6 @@ migrationEnable: "true"
 currentVersion: "5.x.x"
 # Migration End Version
 migrateVersion: "5.x.x"
-#test2
 continueOnError: "false"
 batchUpdate: "true"
 ignoreForInactiveTenants: "true"
@@ -217,23 +216,29 @@ versions:
       location: "step2"
       schema: "identity"
    -
-    name: "PolicySubscriberDataMigrator"
-    order: 10
-    parameters:
-      schema: "identity"
+    name: "SchemaMigrator"
+       order: 10
+       parameters:
+         location: "step2"
+         schema: "token"
    -
-    name: "KeyStorePasswordMigrator"
+    name: "PolicySubscriberDataMigrator"
     order: 11
     parameters:
       schema: "identity"
    -
-    name: "SecurityPolicyPasswordMigrator"
+    name: "KeyStorePasswordMigrator"
     order: 12
     parameters:
       schema: "identity"
    -
-    name: "EventPublisherMigrator"
+    name: "SecurityPolicyPasswordMigrator"
     order: 13
+    parameters:
+      schema: "identity"
+   -
+    name: "EventPublisherMigrator"
+    order: 14
  -
   version: "5.6.0"
   migratorConfigs:
