@@ -32,7 +32,7 @@ public class OAuthTokenDataMigrator extends Migrator {
             addTokenHashColumns();
             migrateTokens();
         } catch (Exception e) {
-            log.error("SQl Exception when execute  token migration.",e);
+            log.error("Error when migrating tokens",e);
             if (!isContinueOnError()) {
                 throw new MigrationClientException(e.getMessage(), e);
             }

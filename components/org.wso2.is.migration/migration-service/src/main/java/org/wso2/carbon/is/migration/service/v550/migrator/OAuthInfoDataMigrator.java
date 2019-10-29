@@ -31,7 +31,6 @@ import org.wso2.carbon.is.migration.service.v550.bean.ClientSecretInfo;
 import org.wso2.carbon.is.migration.service.v550.bean.OauthTokenInfo;
 import org.wso2.carbon.is.migration.service.v550.dao.AuthzCodeDAO;
 import org.wso2.carbon.is.migration.service.v550.dao.OAuthDAO;
-import org.wso2.carbon.is.migration.service.v550.dao.TokenDAO;
 import org.wso2.carbon.is.migration.service.v550.util.OAuth2Util;
 import org.wso2.carbon.is.migration.util.Constant;
 
@@ -40,17 +39,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OAuthDataMigrator extends Migrator {
+public class OAuthInfoDataMigrator extends Migrator {
 
     private static final Log log = LogFactory
-            .getLog(org.wso2.carbon.is.migration.service.v550.migrator.OAuthDataMigrator.class);
+            .getLog(OAuthInfoDataMigrator.class);
     boolean isAuthzCodeHashColumnAvailable = false;
     boolean isClientSecretHashColumnsAvailable = false;
 
     @Override
     public void migrate() throws MigrationClientException {
         try {
-            addHashColumns();
+            addAuthorizeCodeHashColumns();
             deleteClientSecretHashColumn();
             migrateAuthorizationCodes();
             migrateClientSecrets();
@@ -59,7 +58,7 @@ public class OAuthDataMigrator extends Migrator {
         }
     }
 
-    public void addHashColumns() throws MigrationClientException, SQLException {
+    public void addAuthorizeCodeHashColumns() throws MigrationClientException, SQLException {
 
         try (Connection connection = getDataSource().getConnection()) {
             connection.setAutoCommit(false);

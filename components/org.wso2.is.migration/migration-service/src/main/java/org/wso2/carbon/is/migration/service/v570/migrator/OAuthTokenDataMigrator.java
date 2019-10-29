@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OAuthTokenDataMigrator extends Migrator {
-    private static final Log log = LogFactory.getLog(OAuthDataMigrator.class);
+    private static final Log log = LogFactory.getLog(OAuthInfoDataMigrator.class);
     private static String hashingAlgo = OAuthServerConfiguration.getInstance().getHashAlgorithm();
     private static final String ALGORITHM = "algorithm";
     private static final String HASH = "hash";
