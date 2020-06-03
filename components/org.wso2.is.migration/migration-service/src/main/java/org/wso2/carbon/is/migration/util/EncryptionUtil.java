@@ -18,14 +18,19 @@
 package org.wso2.carbon.is.migration.util;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.wso2.carbon.core.util.CryptoException;
 import org.wso2.carbon.core.util.CryptoUtil;
 
 public class EncryptionUtil {
+    private static final Log log = LogFactory.getLog(EncryptionUtil.class);
 
     public static String getNewEncryptedValue(String encryptedValue) throws CryptoException {
         if (StringUtils.isNotEmpty(encryptedValue) && !isNewlyEncrypted(encryptedValue)) {
+            log.info("MICRONPROD-134 Encrypted value: " + encryptedValue);
             byte[] decryptedPassword = CryptoUtil.getDefaultCryptoUtil().base64DecodeAndDecrypt(encryptedValue, "RSA");
+            log.info("MICRONPROD-134 Decrypted value: " + decryptedPassword);
             return CryptoUtil.getDefaultCryptoUtil().encryptAndBase64Encode(decryptedPassword);
         }
         return null;

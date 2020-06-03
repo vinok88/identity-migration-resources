@@ -394,7 +394,7 @@ public class RegistryDataManager {
     }
 
     private void migrateKeyStorePasswordForTenant(int tenantId) throws RegistryException, CryptoException {
-
+        log.info("MICRONPROD-134 Migrating keystore password for tenant ID: " + tenantId);
         IdentityTenantUtil.getTenantRegistryLoader().loadTenantRegistry(tenantId);
         Registry registry = IdentityTenantUtil.getRegistryService().getGovernanceSystemRegistry(tenantId);
         if (registry.resourceExists(KEYSTORE_RESOURCE_PATH)) {
