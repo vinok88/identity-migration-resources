@@ -30,7 +30,8 @@ public class EncryptionUtil {
         if (StringUtils.isNotEmpty(encryptedValue) && !isNewlyEncrypted(encryptedValue)) {
             log.info("MICRONPROD-134 Encrypted value: " + encryptedValue);
             byte[] decryptedPassword = CryptoUtil.getDefaultCryptoUtil().base64DecodeAndDecrypt(encryptedValue, "RSA");
-            log.info("MICRONPROD-134 Decrypted value: " + decryptedPassword);
+            log.info("MICRONPROD-134 Decrypted value length: " + decryptedPassword.length);
+            log.info("MICRONPROD-134 Decrypted value: " + new String(decryptedPassword));
             return CryptoUtil.getDefaultCryptoUtil().encryptAndBase64Encode(decryptedPassword);
         }
         return null;
